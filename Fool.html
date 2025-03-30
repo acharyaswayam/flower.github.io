@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLICK ON THIS OR YOU GAY</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe4e1;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff69b4;
+            color: white;
+            border-radius: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 24px;
+            animation: floatUp 3s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Will you be my silly little fool 🌼 this April Fool's?</h1>
+    <div class="buttons">
+        <button id="yes1">Yes</button>
+        <button id="yes2">Yes</button>
+    </div>
+    <p id="message" class="hidden"></p>
+    
+    <script>
+        let prompts = [
+            "You don't wanna try the other one?",
+            "Are you sure?",
+            "Doesn't the other one seem fun?",
+            "Come on, just try it once!",
+            "I promise it's worth it!"
+        ];
+        let index = 0;
+        let clickedButton = null;
+        
+        document.getElementById("yes1").addEventListener("click", () => handleClick("yes1"));
+        document.getElementById("yes2").addEventListener("click", () => handleClick("yes2"));
+        
+        function handleClick(button) {
+            let message = document.getElementById("message");
+            message.classList.remove("hidden");
+            
+            if (clickedButton === null) {
+                clickedButton = button;
+                message.textContent = prompts[index];
+            } else if (clickedButton === button && index < prompts.length - 1) {
+                index++;
+                message.textContent = prompts[index];
+            } else if (clickedButton !== button) {
+                showFinalMessage();
+            }
+        }
+        
+        function showFinalMessage() {
+            document.body.innerHTML = '<img src="april.jpg" alt="Cute Cat"><h1>They\'re both the same buttons silly. lol. (I love you tho babe)</h1>';
+            for (let i = 0; i < 30; i++) {
+                let emoji = document.createElement("div");
+                emoji.textContent = "😂";
+                emoji.classList.add("emoji");
+                emoji.style.left = Math.random() * 100 + "vw";
+                emoji.style.top = Math.random() * 100 + "vh";
+                emoji.style.animationDuration = Math.random() * 2 + 2 + "s";
+                document.body.appendChild(emoji);
+            }
+        }
+    </script>
+</body>
+</html>
